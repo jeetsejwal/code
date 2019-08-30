@@ -1,0 +1,39 @@
+C sharp----
+=================================
+Object- is a real time world entity with state(data)and behaviour(Functionality)
+Object is instance of class that is created at runtime and are used to access the
+ member of the class.
+Class is a group of objects and contains methods, varibles etc...
+Example:-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace RefClass
+{
+    class Program
+    {
+        int id;
+        string name;
+        public  void add(int i, string s)
+        {
+            id = i;
+            name = s;
+        }
+        public void show()
+        {
+            Console.WriteLine("Id is=" + id + " -Nmae is=" + name);
+        }
+        static void Main(string[] args)
+        {
+            Program p = new Program();
+            Program p2 = new Program();
+            p.add(1, "Sandeep");
+            p.show();
+                       Console.ReadLine();
+
+        }
+    }
+    
+}

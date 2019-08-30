@@ -1,0 +1,170 @@
+DDL :
+	create
+	drop
+	alter
+	trunate
+DML :
+	insert
+	delete
+	update
+
+DQL :
+	select 
+
+
+Where
+Order by
+group by
+case when
+select into 
+===================	
+
+like 	: can be use for string or pattern matching
+
+	%	: any key and any number of times
+	_	: any key with given number of _ times (fix length)
+	
+	id  name	email	magrid
+	1  raman		null	
+	2 jatin			1
+	3 aman			1
+	4 ridhi			1
+	5 ayush			2
+	
+
+	select * from employee where name like  'a%'  --start with a
+	select * from employee where name  like '%a'  --end with a
+	select * from employee where name like  '%a%' --contains a 
+	select * from employee where email like 'a%@gamil.com' --show all data where email 						start with a and ending @gmail.com
+
+	select * from employee where name like 'a___' -- start with a and any four letter 							after a
+		
+	
+	select * from employee where email like 'a___xy%@yahoo.%'
+		
+	
+	
+			
+having 	: is conditional calause , having an be used with group by only(after group by)
+	--WAS. to show list of manager whose direct reportee is greater than 2
+
+
+	select mgrid,count(mgrid)
+	from employee
+	grup by mgrid
+	having count(mgrid) >2
+
+	select mgrid,count(mgrid)
+	from employee
+	where country ='india'
+	grup by mgrid
+	having count(mgrid) >2
+	order by mgrid desc
+
+
+
+top		: returnt the given no of rows from top
+		select top 3 * from employee
+		--from buttom
+			select top 3 * from employee order eid desc 
+
+distinct	: return unique or distinct rows
+		select distinct * from employee
+		
+union 		: to merge two or more then two tables vertically
+		-table structure should be same
+		-data type and column sequence should be same
+		-there are following types
+		i. union : return distinct/unique rows
+			select col1,col2 from A
+			union 
+			select co1,col2 from B
+		
+		ii. union all	: show all rows
+			select col1,col2 from A
+			union all
+			select co1,col2 from B
+		
+	
+	
+
+functions
+	-date
+	-numeric
+	-text function 
+	-type conversion 
+
+
+Q-
+was to show list of users whose bday is today 
+
+Q-
+was to show number of employee is reporting to manager and sum of total salary 
+
+Q
+was to show male and female head count for every manager 
+
+Q
+was to show list of employee whose name start from r and end with n 
+
+
+
+----
+
+
+--date 
+select getdate()
+select datepart(yyyy, getdate())
+select datepart(mm, getdate())
+select datepart(day, getdate())
+select datepart(WEEKDAY, getdate())
+select datepart(DAYOFYEAR, getdate())
+
+
+select DATEADD(yyyy,10,getdate())
+select datepart(weekday, DATEADD(yyyy,10,getdate()))
+--1 sunday 
+--date diff
+select datediff(yyyy,'1990-11-20',getdate())
+select datediff(mm,'1990-11-20',getdate())
+select datediff(DAY,'1990-11-20',getdate())
+
+
+
+--text function 
+select upper('this ISD')
+select lower('this ISD')
+select len('this ISD')
+select left('this ISD',2)
+select right('this ISD',2)
+select replace('this ISD','i','xy')
+select rtrim('this ISD ')
+select ltrim('  this ISD')
+select charindex('-','this is - test code')
+
+--------------------- ---
+select max(col)
+select min(col)
+select sum(col)
+select avg(col)
+select SQRT(9)
+select power(2,4)
+select round(111333.444,1)
+select round(111333.444,0)
+
+
+
+
+--type conversion / type casting
+select convert(varchar, 2)+'ff'
+
+select convert(varchar, getdate(),101)
+select convert(varchar, getdate(),102)
+select convert(varchar, getdate(),103)
+select convert(varchar, getdate(),104)
+select convert(varchar, getdate(),105)
+select convert(varchar, getdate(),106)
+
+
+
+	

@@ -1,0 +1,200 @@
+
+using System;  //for input and output 
+
+
+namespace FirstProject    //namespace collection classes
+{
+    class Program  //wrapper of data member and functioni 
+    {
+
+        //Main is startup function 
+        //[]  -array 
+        //static is keyword which allocates single memory 
+        //void is return type/no return 
+        //args : variable name
+        static void Main(string[] ab)  //string is data type
+        {
+            /*
+            Console.WriteLine("hi");
+
+            int a, b, c;
+            
+            string name;
+            name = "Raman Sinha";
+
+            a = 33;
+            b = 44;
+            c = a + b;
+
+
+            Console.WriteLine("sum of two numbers:" + c);
+            Console.WriteLine("name is " + name);
+
+
+
+            //input from console
+            Console.WriteLine("enter data ");
+            a =Convert.ToInt32(  Console.ReadLine()); //default input type str 
+
+            Console.WriteLine("enter data ");
+            b = Convert.ToInt32(Console.ReadLine()); //default input type str 
+
+
+
+            Console.WriteLine("enter name ");
+            name = Console.ReadLine(); //default input type str 
+
+
+            c = a + b;
+
+
+            Console.WriteLine("sum of two numbers:" + c);
+            Console.WriteLine("name is " + name);
+
+            ///
+            int i, j;
+            i = 0;
+            j = 0;
+
+            Console.WriteLine(i++);//0
+            Console.WriteLine(++j);//1
+
+            Console.WriteLine(i);//1
+            Console.WriteLine(j);//1
+
+
+            int ch;
+            Console.WriteLine("press 1 for add 2 for sub 3 for mul ");
+            ch = Convert.ToInt32(Console.ReadLine());
+            switch (ch)
+            {
+
+                case 1:
+                    Console.WriteLine(a + b);
+                    break;
+                case 2:
+                    Console.WriteLine(a - b);
+                    break;
+                case 3:
+                    Console.WriteLine(a * b);
+                    break;
+                default:
+                    Console.WriteLine("not match");
+                    break;
+            }
+
+
+            //if condition 
+            if (a > b)
+            {
+                Console.WriteLine("a is greater");
+            }
+            else
+            {
+
+                Console.WriteLine("b is greater");
+            }
+            //if else if 
+            c = 55;
+            if (a > b && a > c)
+            {
+                Console.WriteLine("a is greater");
+            }
+            else if (b > a && b > c)
+            {
+                Console.WriteLine("b is greater");
+            }
+            else
+            {
+                Console.WriteLine("c is greater");
+            }
+
+            // Student Details
+            int phone,marks;
+            string nameFirst;
+            Console.WriteLine("enter Phone number ");
+            phone = Convert.ToInt32(Console.ReadLine());  
+            Console.WriteLine("enter marks  ");
+            marks = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("enter Name  ");
+            nameFirst = Console.ReadLine();
+            Console.WriteLine("Mobile Number and Marks =" + phone + "marks is" + marks + "name is=" + nameFirst);
+
+           // cube of number
+            int n;
+            Console.WriteLine("enter  number ");
+            n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Number cube is="+n*n*n);
+
+            
+            //WAP to input roll number, name and marks of a student in 5 subjects and calculate 
+            //the total and average marks. Display all the values.marks
+            int roll, ms,es,cs,hs,ss,sum,avg;
+            string name_Student;
+            
+            Console.WriteLine("enter Roll number ");
+            roll = Convert.ToInt32(Console.ReadLine());
+            
+            Console.WriteLine("enter Name Of Student ");
+            name_Student = Console.ReadLine();
+
+
+            Console.WriteLine("enter marks Of Student ");
+            ms= Convert.ToInt32(Console.ReadLine());
+
+
+            Console.WriteLine("enter marks Of Student ");
+            es = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("enter marks Of Student ");
+            cs = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("enter marks Of Student ");
+            hs = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("enter marks Of Student ");
+            ss = Convert.ToInt32(Console.ReadLine());
+
+
+            sum = ms + es + cs + hs + ss;
+            avg = sum / 5;
+            Console.WriteLine("Total Marks="+sum+"Avg Marks="+avg);
+            */
+            //WAP to input 4 integers a, b, c, d and check that 
+            //the equation a3 + b3 +c3 = d3 is satisfied or not.
+            int Num_a, Num_b, Num_c, Num_d,Num_e;
+
+            Console.WriteLine("enter a ");
+            Num_a = Convert.ToInt32(Console.ReadLine());
+           
+            Console.WriteLine("enter b ");
+            Num_b = Convert.ToInt32(Console.ReadLine());
+            
+            Console.WriteLine("enter c ");
+            Num_c = Convert.ToInt32(Console.ReadLine());
+            
+            Console.WriteLine("enter d ");
+            Num_d = Convert.ToInt32(Console.ReadLine());
+
+            Num_e = (Num_a * Num_a * Num_a) + (Num_b * Num_b * Num_b) + (Num_c * Num_c * Num_c);
+            Num_d = Num_d * Num_d * Num_d;
+
+
+            Console.WriteLine(Num_e);
+            Console.WriteLine(Num_d);
+            if (Num_e == Num_d)
+            {
+                Console.WriteLine("Equation  Satisfied ");
+                
+            }
+            else
+            {
+                Console.WriteLine("Equation not Satisfied ");
+            }
+           // Console.WriteLine("enter d " + (Num_d=Num_a+Num_b+Num_c));
+            Console.ReadLine();
+
+
+        }
+    }
+}

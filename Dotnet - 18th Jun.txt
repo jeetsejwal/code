@@ -1,0 +1,59 @@
+Function : is set of command or instructions 
+================
+Advantage of functions:
+	-Reusability source code 
+	-Support to modular programing, large code/task can be written in small set
+	-Easy to manage to source code 
+	
+
+There are following types of function:
+	-no argument no return
+		syntax:
+		void fun1(){
+
+		}
+	-no argument with return
+		syntax:
+		int fun2(){
+			...
+			return num;
+		}
+	-argument with no return 
+		syntax:
+		void sum(int a, int b)
+		{
+
+			int c =a+b;
+			....	
+
+		}
+	-argument with return
+		syntax:
+		string getFullName(string fn,string ln){
+			return fn+" "+ln;
+		}
+	-reccusion function  : function which will call itself 
+		syntax:
+		int fact(int x)
+		{
+			if(x==1)
+				return x;
+			else
+				return x*fact(x-1);
+		}
+					
+
+static: function or method and datamember can be access/call without object
+
+
+
+String s="sjkshs";
+string[] a = s.split("");
+
+for(int i=0; i<a.length;i++){
+
+		char c = a[i];
+		int nn =c;  //ascii
+
+}
+			

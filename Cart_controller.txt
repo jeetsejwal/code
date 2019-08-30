@@ -1,0 +1,191 @@
+using Ecom.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Data.SqlClient;
+using System.Data;
+using System.Net;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Ecom.Models;
+
+namespace Ecom.Controllers
+{
+    public class UserController : Controller
+    {
+        // GET: User
+        public ActionResult Index()
+        {
+           
+            return View();
+        }
+        
+  //=============================Category Add=========================
+        [HttpGet]
+        public ActionResult cat()
+        {
+            return View();
+        }
+
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
+        } 
+
+        [HttpPost]
+        public ActionResult cat(HttpPostedFileBase ImageFile)
+        {
+
+            string test = ImageFile.FileName;
+            cat obj = new cat();
+            String filename =ImageFile.FileName; 
+            obj.cat_img =filename;
+            obj.catname=filename;
+            obj.img = ConvertToBytes(ImageFile);
+
+               using (six_augEntities db = new six_augEntities())
+                  {
+                    db.cats.Add(obj);
+                    db.SaveChanges();
+                   }
+
+           return View();
+        }
+  //===================================Image Code end=======================================
+  //==============Show Product in list==========================================================
+        public ActionResult show()
+          {
+
+
+
+              ///read win credetials
+              ///
+              var userName = HttpContext.User.Identity.Name;
+
+
+
+            using (six_augEntities o = new six_augEntities())
+            {
+               //selecct x from o.employeeas x;
+               var data = (from x in o.cats select x).ToList();
+               return View(data);
+            }
+        }
+  //==========================Prouct Details===============================================
+        public ActionResult Details(int id, cat model)
+        {
+
+            using (six_augEntities o = new six_augEntities())
+            {
+
+                var data = (from x in o.cats where x.id == id select x).FirstOrDefault();
+                return View(data);
+            }
+            
+        }
+  //============================Details End======================================================
+     
+ //===========================Cart=======================================================
+      
+        public ActionResult Cart(int id)
+        {
+            int Total_Amount;
+          
+            int newprice;
+         
+            try
+                {
+                    using (six_augEntities o = new six_augEntities())
+                    {
+                       
+
+                       var data = (from x in o.cats where x.id == id select x).ToList();
+                      
+                        if (TempData["cartDetails"] == null)
+                              {
+                                 Total_Amount = 0;
+                             
+                                TempData["cartDetails"] = data;
+
+                                cat nd = (from x in o.cats where x.id == id select x).FirstOrDefault();
+                                Total_Amount = Convert.ToInt32(nd.amount);
+                                TempData["price"] = Total_Amount;
+                              }
+                        else
+                              {
+                                  
+                                var olddata = TempData["cartDetails"];
+                                List<Models.cat> cc = (List<cat>)olddata;
+                                Total_Amount = Convert.ToInt32( TempData["price"]);
+                                var nd = (from x in o.cats where x.id == id select x).FirstOrDefault();
+                               
+                               // old = Convert.ToInt32(olddata);
+                                newprice = Convert.ToInt32(nd.amount);
+                                TempData["price"] = newprice; 
+                                int finalprice =  newprice + Total_Amount;
+
+                                //cc.Remove(nd);
+                                cc.Add(nd);
+                               
+                                TempData["cartDetails"] = cc;
+                                TempData["price"] = finalprice;
+                              
+                              }
+                        }
+                }
+                    catch(Exception ex)
+                    {
+                        Response.Write("Exception here");
+                    }
+            return RedirectToAction("MyCart");
+        }
+
+     //============================= Cart End==================================================
+    
+    //=============================My Cart ==================================================
+        public ActionResult MyCart()
+        {
+
+            var tempEmpData = TempData.Peek("cartDetails");
+            var tempprice = TempData.Peek("price");
+
+            return View();
+            
+        }
+      //=============================My Cart End ==================================================
+
+        //===================================Place Order=========================================
+        public ActionResult Order()
+        {
+            var temporderData = TempData.Peek("cartDetails");
+            
+            return View();
+        }
+    
+        //================================== Place Order ========================================
+        public ActionResult Remove(int id)
+        {
+
+            using (six_augEntities o = new six_augEntities())
+            {
+
+                //  var temporderData = TempData.Remove("cartDetails");
+
+                List<cat> items = (List<Ecom.Models.cat>)TempData.Peek("cartDetails");
+
+                List<cat> nd = (from x in items where x.id != id select x).ToList();
+
+                TempData["cartDetails"] = nd;
+
+            }
+            return RedirectToAction("MyCart");
+        }
+        //=================================== Place Orde End =========================================
+
+    }
+}

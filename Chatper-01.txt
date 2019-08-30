@@ -1,0 +1,169 @@
+Today's Topics
+==================
+OVerview of .net framework and VisualStudio
+Version
+C#.net Programing concepts
+
+OVerview of .net framework and VisualStudio
+========================================
+.Net : is framework which contains libraries and provides plateform to development following applications:
+		windows app
+			-console
+			-windows forms / GUI
+		web app
+			asp.net
+			mvc
+		Cloud
+			Azure App integrationg
+			Database
+
+		Other:
+			WCF
+			WebService
+			RestAPI 
+			etc.
+
+Supports to following languages:
+	c#.net	
+	vb.net
+	j#.net
+	
+
+Visual Studio: is editor where can write the code 
+==========================			
+VS is integrated editor (.net framework and editor featres)
+
+
+Console Application:
+==================================
+.sln 	: solution 		
+	: is container of application (we can have multiple application in one sln)
+.csproj    : project extension 
+	   : is application 
+
+
+Project's Structure:
+---------------------
+Solution
+	Project/App
+	Propertes		: meta data /assemblies
+				: data about data(inforamation about project)
+	References		: library ref
+	Program.cs		: c#(sharp) source code 
+	App.config		: configuration file
+				  db connection , message, smtp etc.
+	
+program.cs
+	using namespace	;		import library 
+	
+	public class program{
+
+		public static void main(string[] arg)
+		{
+
+
+		}
+	}
+		
+	
+Variable and datatype:
+========================
+variable : is temp memory where data can be stored		
+int a=11;
+	here a is variable and 11 is data or values
+
+correct syntax:
+	string a;
+	int ab;
+	int a1;
+	string f_name;
+	string _ab;
+		
+	
+
+
+incorrect syntax:
+	string 1a;
+	string f name;
+	int a+b;
+	
+
+Datatype:
+=============
+--without decimal 
+byte		1 byte
+short		2 byte
+int		4 byte(32bit)
+long 		8 byte 
+--with decimal 
+float		4 byte (32 bit)
+double		8 byte
+
+
+alpha numeric
+-------------
+char		c ='$'
+string 		s ="sklsgsfgh44d##Fv"
+
+
+boolean
+---------------
+either or false 
+
+
+
+Input and Output
+=========================
+Console.readLine();
+
+
+
+Operator:
+====================
+Arithmetic:
+	+
+	-
+	*
+	/	23/10 = 2 or 2.3
+	%	23%10 =3
+
+Conditional
+	>
+	>=
+	<
+	<=
+	==
+	!=  is not equal 
+
+Logical:
+	&&
+	||
+
+Assignment Operator:
+	=		a=1
+	+=		a+=1   or a=a+1
+	-=
+	*=
+
+Increment and Decrement:
+	++
+	--
+	postfix:
+		i++
+		i--
+	prefix:
+		++i
+		--i
+	
+
+Condition: is decision making statement
+===============
+-Switch case
+-if condition 
+
+	
+	
+		
+
+
+	

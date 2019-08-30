@@ -1,0 +1,26 @@
+API : is library or methods which can access over internet 
+==============================================================
+How to consume API or webservice:
+	
+https://jsonplaceholder.typicode.com/todos
+
+
+Rest API return data in Json format:
+
+	{id:11, name:'fff'}
+
+	Object of json:
+	[{id:11,name:'fff'},{id:444,name:'fff'}]
+
+
+
+Promise API:
+=======================
+fetch(api_url)
+.then()
+.then()
+....
+
+
+fetch("https://jsonplaceholder.typicode.com/todos").then(res => res.json()).then(o=> console.log(o))
+

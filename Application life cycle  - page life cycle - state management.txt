@@ -1,0 +1,107 @@
+=============================================
+Application Life Cycle
+=============================================
+=============================================
+
+Global.asax
+==============================
+
+Application_start()		: execute one time
+
+Application_BeginRequest()	: will execute first time and for every events/refresh
+Application_AuthenticateRequest() : will execute first time and for every events/refresh
+
+Session_start()			: execute one time	
+
+Application_error()		: execute for every exception
+
+Session_end()			: execute one time
+Applicaiton_end()		: execute one time
+
+
+
+=============================================
+Page Life Cycle
+=============================================
+=============================================
+
+
+protected void Page_PreInit(object sender, EventArgs e) {  
+        //Work and It will assign the values to label.  
+        lblName.Text = lblName.Text + "<br/>" + "PreInit";  
+    }  
+    protected void Page_Init(object sender, EventArgs e) {  
+        //Work and It will assign the values to label.  
+        lblName.Text = lblName.Text + "<br/>" + "Init";  
+    }  
+    protected void Page_InitComplete(object sender, EventArgs e) {  
+        //Work and It will assign the values to label.  
+        lblName.Text = lblName.Text + "<br/>" + "InitComplete";  
+    }  
+    protected override void OnPreLoad(EventArgs e) {  
+        //Work and It will assign the values to label.  
+        //If the page is post back, then label contrl values will be loaded from view state.  
+        //E.g: If you string str = lblName.Text, then str will contain viewstate values.  
+        lblName.Text = lblName.Text + "<br/>" + "PreLoad";  
+    }  
+    protected void Page_Load(object sender, EventArgs e) {  
+        //Work and It will assign the values to label.  
+        lblName.Text = lblName.Text + "<br/>" + "Load";  
+    }  
+    
+    protected void Page_LoadComplete(object sender, EventArgs e) {  
+        //Work and It will assign the values to label.  
+        lblName.Text = lblName.Text + "<br/>" + "LoadComplete";  
+    }  
+    protected override void OnPreRender(EventArgs e) {  
+        //Work and It will assign the values to label.  
+        lblName.Text = lblName.Text + "<br/>" + "PreRender";  
+    }  
+    protected override void OnSaveStateComplete(EventArgs e) {  
+        //Work and It will assign the values to label.  
+        //But "SaveStateComplete" values will not be available during post back. i.e. View state.  
+        lblName.Text = lblName.Text + "<br/>" + "SaveStateComplete";  
+    }  
+    protected void Page_UnLoad(object sender, EventArgs e) {  
+        //Work and it will not effect label contrl, view stae and post back data.  
+        lblName.Text = lblName.Text + "<br/>" + "UnLoad";  
+    }  
+
+
+=============================================
+State Management 
+=============================================
+=============================================
+Web application works on http/https protocol which is stateless , so state management technique helps
+to manage the state of data 
+
+
+There are following types 
+	- server side
+		-session 		: is global which can access from anywhere in application 
+					: session memory store on server 
+					: 
+		-cache			: is application level 
+	- client side
+		-cookies		: application level and in same browser 
+		-query string 		: url level and rewriting 
+						htpps://abcd.com?name='fkfhf&id=11
+		-view state 		: is store data in temp variable as a hidden field which can access on a page
+					: scope is page level 
+		-hidden field		: page level 
+
+	
+
+Data Control :grid view 
+Validation Control
+USer Control			: custom control 
+				: extension of user control file is .ascx
+				: user cntrol cannot be rendered directly , this can be added in .aspx control
+				: user control is usefull when need to use same data template or form in multiple .axpx page 
+
+		
+Ajax Call : ansync call 
+Promise API : consume web service 
+	fetch(url)
+	.then(res => res.json())
+	.then(out=> print....)

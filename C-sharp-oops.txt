@@ -1,0 +1,85 @@
+OOPS
+============
+Inheritence 	: to extend one class features to another class 
+		: child/drived class object can access parent class methods/function and data member
+		Example:
+			A -> B
+			here A is base/parent class and B is drived/child class
+		
+		There are following types of inheritence
+		i. Single Level	
+			A -> B
+		ii. Multi Level
+			A -> B -> C .... -> X
+		iii. Tree
+			A -> B, C, D -> M, X
+		iv. Hybrid
+			A -> B -> C -> D		
+			M -> X,Y 
+
+			
+		v. Multiple 
+				A,B,C ....-> M 
+				C# doesn't support multiple inheritence 
+
+Polymorphisam :
+		poly - many
+		morphisam - forms 
+		Polymorphisam: multiple methods/functions will have same name but different works
+			
+
+		There are following types of polymorphsiam:
+			i. overloading : multiple methods will have same name but different argument
+					(no of argument, type of argument can be differ)
+					-overloading doesn't depends on return type 
+					-overloading is also known as compile time , and static 
+
+					Example:
+					class A
+					{
+						void add(int a, int b)
+						{
+
+						}
+
+					}
+
+					class B : A
+					{
+
+						void add(double a, int b)
+						{
+
+						}
+						void add(int a, int b, int c)
+						{
+
+						}
+
+					} 
+
+					
+			ii. overriding  : multiple methods will have same name and same argument
+				        : overriding is also known as runtime, and dynamic overriding 
+					Example:
+					class A
+					{
+						virtual void add(int a, int b)
+						{
+
+						}
+
+					}
+
+					class B : A
+					{
+
+						
+						override void add(int a, int b)
+						{
+
+						}
+
+					} 
+Interface
+Abstract Class

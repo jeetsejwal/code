@@ -1,0 +1,233 @@
+string s ="this is Programing langauge. We can develop program."
+
+
+string[] m = s.split(" ");
+//{"this","is","Pro...."}
+
+
+foreach(string ns  in m){
+
+	char c = ns.SubString(0,1); //P
+	int n =c;  //convert to ascii
+	if(n>=65 && n<=90)	
+		Console.WriteLine(ns);
+}
+
+Ascii:
+	65   91 
+	
+Programing
+We
+
+
+
+--word count
+string s ="this is Programing langauge. We can develop program."
+
+
+string[] m = s.split(' ');
+
+Console.WriteLine(m.length)
+
+---------------space count
+int sc = s.Length -s.replace(" ","").Length;
+         46 - 42 = 4 
+Console.WriteLine(sc);
+
+
+int tc = s.Length -s.replace("\t","").Length;
+
+int lc = s.Length -s.replace("\n","").Length;
+
+
+
+Exception Handling
+======================
+Exception : is runtime error which may or may not occur 
+Handling  : tackle the error when this will occur 
+
+
+There are following keywords:
+try			: logical code should be part of try block 
+catch			: tackle error when this will occur 
+			: multiple catch block can be implemented with one try
+			: Error type Exception should be at last if multiple catch is implemented
+			try{
+
+
+			}
+			
+			catch(ArithmeticException ex)
+			{
+
+
+			}
+			catch(Exception e)
+			{
+
+			}	
+finally			: finally will execute always if this block is present after try and catch
+			: can we implement try without catch ? yes with finally
+
+			try{
+
+
+			}
+			finally{
+
+			}
+throw			: is user defined error , we can generate/create the error based on user given condition 
+
+
+
+
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		
+		
+            //division 
+            int num1,div1,out1;
+            Console.WriteLine("enter data :");
+            num1 = Convert.ToInt32(Console.ReadLine());
+            
+            
+            Console.WriteLine("enter data :");
+            div1 = Convert.ToInt32(Console.ReadLine());
+            
+            
+            
+            try{
+				
+				
+				if(div1<0)
+					{
+						
+						Exception er = new Exception("divisor cannot be less than 0");	
+						throw er;
+													 
+					}
+					
+					
+             
+                out1 = num1/div1;
+                Console.WriteLine(out1);
+                
+            }
+			catch(Exception e){
+				Console.WriteLine(e);	
+			}
+            
+	}
+}
+
+
+
+//Rextester.Program.Main is the entry point for your code. Don't change it.
+//Compiler version 4.0.30319.17929 for Microsoft (R) .NET Framework 4.5
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Rextester
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            //Your code goes here
+            Console.WriteLine("Hello, world!");
+            
+            
+            
+            //WAP to subs 
+            int[] a={8,17,15,17};
+            int[] b={28,27,15,10};
+            int[] arr = new int[4];
+            
+            try{
+                             for(int i = 0;i < arr.Length; i++ )
+
+                                {
+
+                                    arr[i] = b[i] - a[i];                             
+
+                                }
+
+                            for(int i = 0; i < 20; i++)
+
+                                {
+
+                                    Console.Write(arr[i] + " ");
+
+                                }
+           
+            }
+            catch(Exception e)
+            {
+                        Console.Write("error type.....");
+            }
+            finally{
+                
+                 Console.Write("final bolck error type.....");
+
+			}
+            
+            
+            //addition 
+            int a1,b1,c1;
+            a1 =44;
+            b1 =0;
+            try{
+                c1 =a1/b1;
+                Console.WriteLine(c1);
+            }
+            catch(Exception e)
+            {
+                Console.Write("Sum type error.....");
+            }
+            
+            
+            
+            //division 
+            int num1,div1,out1;
+            Console.WriteLine("enter data :");
+            num1 = Convert.ToInt32(Console.ReadLine());
+            
+            
+            Console.WriteLine("enter data :");
+            div1 = Convert.ToInt32(Console.ReadLine());
+            
+            
+            
+            try{
+             
+                out1 = num1/div1;
+                Console.WriteLine(out1);
+                
+            }
+            catch{
+                
+                
+                    Console.WriteLine("error");
+            }
+         
+        }
+    }
+}
+
+
+
+
+
+
+ 
+
+
+
+

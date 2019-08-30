@@ -1,0 +1,433 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="WebProject._default" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title> First web page </title>
+</head>
+<body>
+   
+    <form id="form1" runat="server">
+  
+        
+ <div style="color:blue; font-weight:600; text-decoration:solid; text-transform:uppercase; margin:20px;">
+       <asp:HyperLink ID="hp"  NavigateUrl="~/default.aspx" runat ="server" >Home</asp:HyperLink> | 
+     <asp:HyperLink ID="hp1"  NavigateUrl="~/Edit.aspx" runat="server" >Service</asp:HyperLink> 
+     | <asp:HyperLink ID="hp2"  NavigateUrl="~/View.aspx" runat="server" >View Data</asp:HyperLink>
+         | <asp:HyperLink ID="hp3" runat="server" >Gallery</asp:HyperLink> |
+      <asp:HyperLink  ID="hp4" runat="server">Contact Us</asp:HyperLink>
+      
+   </div>
+
+
+          <div>
+    
+
+                <asp:Image ID="img" runat="server" ImageUrl="~/a2.jpg" />
+
+        <p>
+
+            First Name : <asp:TextBox ID="fname" runat="server" ></asp:TextBox>
+        </p>
+        <p>
+            Last Name : <asp:TextBox ID="lname" runat="server"></asp:TextBox>
+        </p>
+        <p>
+            Password  : <asp:TextBox ID="pwd" runat="server" TextMode="Password" />
+        </p>
+        <p>
+
+            Gender : <asp:RadioButton ID="rdbmale" GroupName="a" runat="server" Text="Male" />
+             <asp:RadioButton ID="rdbfemale" GroupName="a" runat="server" Text="Female" />
+        </p>
+        <p>
+             Country : <asp:DropDownList ID="ddlcountry" runat="server">
+
+                 <asp:ListItem Value="0" Text="--Select--"> </asp:ListItem>
+                 <asp:ListItem Value="1" Text="India"> </asp:ListItem>
+                <asp:ListItem Value="2" Text="US"> </asp:ListItem>
+                <asp:ListItem Value="3" Text="UK"> </asp:ListItem>
+                <asp:ListItem Value="4" Text="Aus"> </asp:ListItem>
+
+                       </asp:DropDownList>
+        </p>
+        <p>
+
+            <asp:CheckBox ID="chkdancd" runat="server"  Text="Dancing"/>
+            <asp:CheckBox ID="chkcricket" runat="server"  Text="Cricket"/>
+            <asp:CheckBox ID="chksing" runat="server"  Text="Singing"/>
+            <asp:CheckBox ID="chkspots" runat="server"  Text="Sports"/>
+            <asp:CheckBox ID="chktravle" runat="server"  Text="Travell"/>
+
+        </p>
+        <p>
+            <asp:Button ID="btn" runat="server" Text="Click Me" OnClick="btn_Click" />
+             <asp:Button ID="view" runat="server" Text="View All" OnClick="view_Click" />
+        </p>
+    </div>
+    </form>
+</body>
+</html>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+
+
+namespace WebProject
+{
+    public partial class _default : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+          
+        }
+       
+
+        protected void btn_Click(object sender, EventArgs e)
+        {
+            string fn, ln, fullname,psd;
+            fn = fname.Text;
+            ln = lname.Text;
+            psd = pwd.Text;
+
+            fullname = fn + " " + ln;
+
+            string gender = "";
+
+            if (rdbfemale.Checked)
+            {
+                gender = "Female";
+            }
+            else if (rdbmale.Checked)
+            {
+                gender = "male";
+            }
+
+
+            string country = "";
+            country = ddlcountry.SelectedItem.Text;
+
+
+            string hobbies = "";
+            if (chkdancd.Checked)
+                hobbies += "Dance,";
+
+            if (chkcricket.Checked)
+                hobbies += "Cricket,";
+            
+            if (chksing.Checked)
+                hobbies += "Singing,";
+            
+            if (chkspots.Checked)
+                hobbies += "Sports ,";
+            
+            if (chktravle.Checked)
+                hobbies += "Travle ,";
+
+
+            ///db connection and submit data in db 
+
+            SqlConnection con = new SqlConnection("Data Source = DESKTOP-47TF4G5\\SQLEXPRESS ; Initial Catalog= webform; Integrated Security=True;");
+            SqlCommand cmd = new SqlCommand("regg",con);
+           try
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@type", SqlDbType.VarChar).Value = "Insert";
+                cmd.Parameters.Add("@fname", SqlDbType.VarChar).Value = fn;
+                cmd.Parameters.Add("@lname", SqlDbType.VarChar).Value = ln;
+                cmd.Parameters.Add("@pass", SqlDbType.VarChar).Value = psd;
+                cmd.Parameters.Add("@gen", SqlDbType.VarChar).Value = gender;
+                cmd.Parameters.Add("@country", SqlDbType.VarChar).Value = country;
+                cmd.Parameters.Add("@hob", SqlDbType.VarChar).Value = hobbies;
+
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+                DataSet ds = new DataSet();
+                adp.Fill(ds);
+
+
+
+                //Response.Write("Name is "+fullname);
+                Response.Redirect("home.aspx?name=" + fullname);
+           }
+           catch
+           {
+               Response.Write("Exception here");
+           }
+
+        }
+        protected void view_Click(object sender, EventArgs e)
+        {
+
+          
+              
+            
+           Response.Redirect("View.aspx");
+        }
+    }
+}
+
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="View.aspx.cs" Inherits="WebProject.View" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+  
+    <div>
+   <h1> Welcome View Page</h1>
+           <form  runat="server">  
+
+                <div>
+
+                    Search : <asp:TextBox ID="searchtext" runat="server">
+
+                             </asp:TextBox>
+
+                    <asp:Button ID="btnsearch" runat="server" Text="Search" OnClick="btnsearch_Click" />
+                 </div>
+       
+
+                <div>
+
+                      <asp:GridView ID="grid" runat="server"></asp:GridView>
+
+                </div>
+
+    </form>
+        
+    </div>
+ 
+</body>
+</html>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+using System.Data;
+using System.Data.SqlClient;
+
+namespace WebProject
+{
+    public partial class View : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            bindData();
+        }
+
+
+        private void bindData()
+        {
+
+            SqlConnection con = new SqlConnection("Data Source = DESKTOP-47TF4G5\\SQLEXPRESS ; Initial Catalog= webform; Integrated Security=True;");
+            SqlCommand cmd = new SqlCommand("regg_view", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@type", SqlDbType.VarChar).Value = "View";
+
+
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            adp.Fill(dt);
+            con.Close();
+
+
+            grid.DataSource = dt;
+            grid.DataBind();
+
+
+
+            //DataList1.DataSource = dt;
+
+
+
+            //Response.Write("Name is "+fullname);
+        }
+
+        protected void btnsearch_Click(object sender, EventArgs e)
+        {
+            string search = searchtext.Text.Trim();
+
+            if (search != "")
+            {
+                SqlConnection con = new SqlConnection("Data Source = DESKTOP-47TF4G5\\SQLEXPRESS ; Initial Catalog= webform; Integrated Security=True;");
+                SqlCommand cmd = new SqlCommand("searchtex", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@type", SqlDbType.VarChar).Value = "search";
+                cmd.Parameters.Add("@searchtext", SqlDbType.VarChar).Value = search;
+
+
+
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                con.Close();
+
+
+                grid.DataSource = dt;
+                grid.DataBind();
+            }
+            Response.Write("search text cannot be blank");
+
+
+
+        }
+    }
+}
+USE [webform]
+GO
+/****** Object:  StoredProcedure [dbo].[regg_view]    Script Date: 7/11/2019 1:48:58 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[regg_view]
+@type varchar(40)
+
+as
+
+					
+					-----view part
+					if (@type='View')
+					begin
+					select *from register
+					end
+					
+					else
+					begin
+					select *from register
+
+					end
+
+
+					alter proc searchtex
+@type varchar(40),
+@searchtext varchar(40)
+as 
+
+					
+					-----view part
+					if (@type='search')
+					begin
+					select *from register where reg_fname like  '%'+@searchtext+'%'
+					end
+					
+					else
+					begin
+					select *from register
+
+					end
+
+
+USE [webform]
+GO
+/****** Object:  StoredProcedure [dbo].[regg]    Script Date: 7/11/2019 1:57:50 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[regg]
+@type varchar(40),
+@fname varchar(50),
+@lname varchar(50),
+@pass varchar(50),
+@gen varchar(50),
+@country varchar(50),
+@hob varchar(50)
+
+
+as
+
+					if (@type='Insert')
+					begin
+					insert into register (reg_fname,reg_lname,reg_pass,reg_gen,reg_country,reg_hob) values (@fname,@lname,@pass,@gen,@country,@hob)
+
+					end
+					
+					else
+					begin
+					select *from register
+
+					end
+					-----view part
+					if (@type='View')
+					begin
+					select *from register
+					end
+					
+					else
+					begin
+					select *from register
+
+					end
+
+
+					alter proc reg_udate
+						
+@id int,
+@type varchar(40),
+@fname varchar(50),
+@lname varchar(50),
+@pass varchar(50),
+@gen varchar(50),
+@country varchar(50),
+@hob varchar(50)
+
+
+as
+
+					if (@type='Update')
+					begin
+					update register set reg_fname=@fname,reg_lname=@lname,reg_pass=@pass,reg_gen=@gen,reg_country=@country,reg_hob=@hob
+					where @id=reg_id
+
+					end
+					
+					else
+					begin
+					select *from register
+
+					end
+					-----view part
+				
+				
+				create proc reg_delete
+						
+@id int,
+@type varchar(40),
+
+
+
+as
+
+					if (@type='Delete')
+					begin
+				
+				
+					end
+					
+					else
+					begin
+					select *from register
+
+					end	

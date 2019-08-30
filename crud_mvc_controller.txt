@@ -1,0 +1,266 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Six_Aug.Models;
+using System.Data.SqlClient;
+using System.Data;
+using System.Net;
+using System.IO;
+
+namespace Six_Aug.Controllers
+{
+    public class UserController : Controller
+    {
+        six_augEntities dc = new six_augEntities();
+        // GET: User
+        public string Index()
+        {
+            return "hi this is my first action";
+        }
+
+        public ActionResult Home()
+        {
+
+            return View();
+        }
+       
+       //=================Create New=======================
+        [HttpPost]
+        public ActionResult Home(Users o)
+        {
+
+          //  string name ="Data Inserted.......";
+            string fn, ln, em;
+          
+            fn = o.fname;
+            ln = o.lname;
+            em = o.email;
+            //jdbc connection and save to database 
+            SqlConnection con = new SqlConnection("Data Source = DESKTOP-47TF4G5\\SQLEXPRESS ; Initial Catalog= six_aug; Integrated Security=True;");
+            SqlCommand cmd = new SqlCommand("empproc", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@type", SqlDbType.VarChar).Value = "Insert";         
+            cmd.Parameters.Add("@fname", SqlDbType.VarChar).Value = fn;
+            cmd.Parameters.Add("@lname", SqlDbType.VarChar).Value = ln;
+            cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = em;
+
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+            adp.Fill(ds);
+
+
+
+            return RedirectToAction("GetUsers"); 
+
+        }
+        //==================Show Data===========================
+
+        public ActionResult getUsers()
+        {
+
+            using (six_augEntities o = new six_augEntities())
+            {
+
+                //selecct x from o.employeeas x;
+                var data = (from x in o.employees select x).ToList();
+                return View(data);
+            }
+
+
+        }
+        //======================Details==============================
+
+        public ActionResult Details(int id)
+        {
+
+            using (six_augEntities o = new six_augEntities())
+            {
+
+                //select x from o.employee as x;
+                var data = (from x in o.employees where x.id == id select x).FirstOrDefault();
+                return View(data);
+            }
+
+
+        }
+        //=======================================================
+       //<!-- =========================Edit=====================>
+       
+        public ActionResult Edit(int id)
+        {
+
+            string name = "Data Updated.......";
+
+            using (six_augEntities o = new six_augEntities())
+            {
+
+                //selecct x from o.employeeas x;
+                var data = (from x in o.employees where x.id==id select x).FirstOrDefault();
+                return View(data);
+            }
+            
+
+        }
+        [HttpPost]
+         public ActionResult Edit(employee o)
+        {
+
+
+            string fn, ln, em;
+
+            fn = o.fname;
+            ln = o.lname;
+            em = o.email;
+            //jdbc connection and save to database 
+            SqlConnection con = new SqlConnection("Data Source = DESKTOP-47TF4G5\\SQLEXPRESS ; Initial Catalog= six_aug; Integrated Security=True;");
+            SqlCommand cmd = new SqlCommand("Updateemp", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@type", SqlDbType.VarChar).Value = "update";
+            cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = o.id;
+            cmd.Parameters.Add("@fname", SqlDbType.VarChar).Value = fn;
+            cmd.Parameters.Add("@lname", SqlDbType.VarChar).Value = ln;
+            cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = em;
+
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+            adp.Fill(ds);
+            return RedirectToAction("GetUsers"); 
+        }
+
+        //=============================Delete=========================
+        public ActionResult Delete(int id)
+        {
+
+            using (six_augEntities o = new six_augEntities())
+            {
+
+                //select x from o.employee as x;
+                var data = (from x in o.employees where x.id == id select x).FirstOrDefault();
+                return View(data);
+            }
+
+
+        }
+
+        [HttpPost]
+        public ActionResult Delete(employee o)
+        {
+
+
+            //jdbc connection and save to database 
+            SqlConnection con = new SqlConnection("Data Source = DESKTOP-47TF4G5\\SQLEXPRESS ; Initial Catalog= six_aug; Integrated Security=True;");
+            SqlCommand cmd = new SqlCommand("deletedata", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@type", SqlDbType.VarChar).Value = "deletee";
+            cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = o.id;
+  
+
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+            adp.Fill(ds);
+            return RedirectToAction("GetUsers");
+        }
+        //=============================Delete=========================
+        //=============================Login=========================
+        public ActionResult Login()
+        {
+
+            using (six_augEntities o = new six_augEntities())
+            {
+
+                //select x from o.employee as x;
+               // var data = (from x in o.employees where x.id == id select x).FirstOrDefault();
+                return View();
+            }
+
+
+        }
+        [HttpPost]
+        public ActionResult Login(employee o)
+        {
+
+            //jdbc connection and save to database 
+            SqlConnection con = new SqlConnection("Data Source = DESKTOP-47TF4G5\\SQLEXPRESS ; Initial Catalog= six_aug; Integrated Security=True;");
+            SqlCommand cmd = new SqlCommand("logindata", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@type", SqlDbType.VarChar).Value = "loginn";
+            cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = o.email;
+            cmd.Parameters.Add("@fname", SqlDbType.VarChar).Value = o.fname;
+
+
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+            DataSet ds = new DataSet();
+            ViewBag.user = o.email;
+            ViewBag.user1 = "heeloo view bag";
+            ViewData["usr"]="usr data";
+            TempData["usrr"] = o.email;
+            int n=adp.Fill(ds);
+           // Session["User"] = o.email;
+            if (n==0)
+            {
+                return RedirectToAction("Login"); 
+            }
+            else
+            {
+                return RedirectToAction("admin"); 
+            }
+          
+
+
+        }
+        public ActionResult admin()
+        {
+
+             return View();
+            
+
+
+        }
+
+
+
+        //=============================Login=========================
+        //=============================Category Add=========================
+      [HttpGet]
+        public ActionResult cat()
+        {
+            return View();
+        }
+        [HttpPost]
+      public ActionResult cat(cat catModel)
+      {
+          String filename = Path.GetFileNameWithoutExtension(catModel.cat_image_data.FileName);
+          String Extension = Path.GetExtension(catModel.cat_image_data.FileName);
+          filename = filename + DateTime.Now.ToString("yymmssfff") + Extension;
+          catModel.cat_img = "~/Content/img/" + filename;
+          filename = Path.Combine(Server.MapPath("~/Content/img/"), filename);
+          catModel.cat_image_data.SaveAs(filename);
+          using (six_augEntities db = new six_augEntities())
+          {
+              db.cats.Add(catModel);
+              db.SaveChanges();
+              
+
+          }
+          ModelState.Clear();
+          return View();
+      }
+        
+
+
+        //=============================Category Add=========================
+
+
+        public object cat_image_data { get; set; }
+    }
+}

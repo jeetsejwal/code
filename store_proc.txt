@@ -1,0 +1,42 @@
+create database webform
+use webform
+
+create table register
+(
+reg_id int primary key identity(1,1),
+reg_fname varchar(50),
+reg_lname varchar(80),
+reg_pass varchar(80) not null,
+reg_gen varchar(50),
+reg_country varchar(50),
+reg_hob varchar(50)
+)
+
+select * from register
+
+Alter proc regg
+@type varchar(40),
+@fname varchar(50),
+@lname varchar(50),
+@pass varchar(50),
+@gen varchar(50),
+@country varchar(50),
+@hob varchar(50)
+
+
+as
+
+					if (@type='Insert')
+					begin
+					insert into register (reg_fname,reg_lname,reg_pass,reg_gen,reg_country,reg_hob) values (@fname,@lname,@pass,@gen,@country,@hob)
+
+					end
+					
+					else
+					begin
+					select *from register
+
+					end
+
+
+					sp_help register

@@ -1,0 +1,96 @@
+
+
+OOPS
+=======================================================
+=======================================================
+OOPS : Object oriented programing structure 
+----------------------------------------------
+Advantage:
+	->Reusability of source code 
+	->Support to modular programing, large code can be written in small set 
+	->Easy to manage the source code 
+
+OOPS fundamentals:
+	-Class		: is wrapper of data member and function/method 
+			Example:
+			class Employee
+			{
+				int a;	//data member
+				void newemp(){}  //method			
+
+			}
+	-Object		: is an instance of class 
+			Example:
+			Employee e  =new Employee();
+	
+			Employee : is name of the class
+			e 	 : is an instance of class
+			new 	 : is keyword which allocates the memory
+			Employee() : invoke to default constructor 
+
+	
+	-Encapsulation  : is wrapping of data member and function in a single unit
+			: data member and method can be written together 
+			: every class is by default encapsulated 
+			
+	-Abstraction, data hiding: to expose the essential features of class and hide 
+			the implementation i.e. called abstraction
+		 	Data hiding: access specifier 
+	-constructor	:is method which invokes automatically when object will 				create 
+			-> Name of the method must be same as name of the class
+			-> Constructor cannot have return type
+			-> Constructor call explicitly
+			-> There are different types of constructor:
+				-Derault (no parameter)
+				-With argument
+				-Copy constructor 
+
+		
+	
+
+	-Inheritence
+	-Polymorphisam
+	-Abstract Class
+	-Interface
+	
+
+-Access Specifier
+-Access Modifier
+	-final
+	-this
+	-super
+	-static
+-implements
+-extends
+-abstract	
+
+
+Access Specifier
+================================
+keywords			wihtin_class	in_child	in_package anywhere
+---------			-----------	---------	---------- ---------
+private				    y		   n		     n        n
+protected			    y		   y 		     n	      n	 	
+default/no keyword		    y		   y		     y        n		
+public				    y		   y 		     y	      y
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+	

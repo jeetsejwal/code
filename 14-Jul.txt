@@ -1,0 +1,51 @@
+Page_Load:
+	will load/call / invoke first time and event 
+
+
+	How to validate postback/refresh or event call
+
+		IsPostBack   : return boolean 
+			     : false -first time load
+			     : true  -button or even call
+
+	How to prevent the code to get executed next time
+	(code should be execute on first page load)
+	
+		if(!IsPostBack)
+		{
+
+			//will execute one time 
+
+
+
+		}
+
+web.config
+==========
+We can keep configuration which should be shared/access from any web page or code in project
+Example:
+	-connnection string (db connection)
+	-smtp : email details
+	-user id and password 
+	etc.
+
+	
+<appSettings>
+
+    <add key="conn" value="Data Source = DESKTOP-47TF4G5\SQLEXPRESS ; Initial Catalog= proj; Integrated Security=True;"/>
+  </appSettings>
+  
+    
+
+Master Page
+=======================: 
+	is template page to maintain the same format for all the web pages 
+
+SiteTemplate.Master			--Master is extension 
+
+
+<asp:ContentPlaceHolder ID="head" runat="server">
+ 
+
+</asp:ContentPlaceHolder>
+

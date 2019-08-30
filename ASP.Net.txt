@@ -1,0 +1,18 @@
+class ASP : Active Server Page
+	
+
+asp.net :
+
+	References
+	App_data
+	
+	home.aspx		: design /ui(html,css,asp control,js etc) *
+	home.aspx.cs		: code behind or action file		  *
+	home.aspx.designer.cs	: list of asp and objects 
+
+
+	web.config	 	: cofiguration settings 
+					just like: connection string
+	
+	Global.asax		: application life cycle (session_start, application_start etc)
+	

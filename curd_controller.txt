@@ -1,0 +1,184 @@
+using Demo_22_Aug.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Security;
+
+namespace Demo_22_Aug.Controllers
+{
+    public class AddController : Controller
+    {
+        // GET: Add
+        public ActionResult Index()
+        {
+            ViewBag.Jeetsejwal = "View bag example";
+            ViewBag.listnew = new List<string>() { "Jeet", "Sejwal", "Amar" };
+            return View();
+        }
+        public string Employee(int id)
+        {
+           
+            return "Emp Data";
+        }
+
+        public ActionResult Login()
+        {
+            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(emp model)
+        {
+            using (var context = new aug_28Entities())
+            {
+                Boolean isvalid = context.emp.Any(x => x.ename == model.ename && x.job == model.job);
+                if (isvalid)
+                {
+                    FormsAuthentication.SetAuthCookie(model.ename, false);
+                    return RedirectToAction("index", "emps");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "emps");
+                }
+            }
+            
+        }
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Add");
+        }
+    }
+}
+================================================================================
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using Demo_22_Aug.Models;
+
+namespace Demo_22_Aug.Controllers
+{
+    [Authorize]
+    public class empsController : Controller
+    {
+        private aug_28Entities db = new aug_28Entities();
+
+        // GET: emps
+        public ActionResult Index()
+        {
+            return View(db.emp.ToList());
+        }
+
+        // GET: emps/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            emp emp = db.emp.Find(id);
+            if (emp == null)
+            {
+                return HttpNotFound();
+            }
+            return View(emp);
+        }
+
+        // GET: emps/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: emps/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "empno,ename,job,mgr,hiredate,sal,comm,deptno")] emp emp)
+        {
+            if (ModelState.IsValid)
+            {
+                db.emp.Add(emp);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(emp);
+        }
+
+        // GET: emps/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            emp emp = db.emp.Find(id);
+            if (emp == null)
+            {
+                return HttpNotFound();
+            }
+            return View(emp);
+        }
+
+        // POST: emps/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "empno,ename,job,mgr,hiredate,sal,comm,deptno")] emp emp)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(emp).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(emp);
+        }
+
+        // GET: emps/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            emp emp = db.emp.Find(id);
+            if (emp == null)
+            {
+                return HttpNotFound();
+            }
+            return View(emp);
+        }
+
+        // POST: emps/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            emp emp = db.emp.Find(id);
+            db.emp.Remove(emp);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}
