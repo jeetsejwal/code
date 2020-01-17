@@ -1,0 +1,132 @@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+
+<div class="row">
+
+    <div class="container">
+        <form id="addTodo">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="enter name"/>
+
+                   </div>
+            <button type="submit" class="btn btn-primary">submit</button>
+            
+        </form>
+
+
+
+        <div class="col-lg-3">
+
+            <ul class="list-group"></ul>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="content"></div>
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.2/handlebars.min.js"></script>
+
+    <script id="entry-template" type="text/x-handlebars-template">
+  <li class="list-group-item" id="{{id}}">
+      <div>
+          <span>{{text}}</span>
+          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-warning">Edit</button>
+
+
+      </div>
+    </li>
+        
+</script>
+<script src="~/Scripts/CustomSecond.js"></script>
+============================================
+
+$(function () {
+    var $varlist = $(".list-group");
+
+    function getpost() {
+
+        $.ajax({
+            url: "https://jsonplaceholder.typicode.com/todos",
+            method: "GET",
+            success: function (data) {
+                var newData = data.slice(0, 10);
+                var listItem = [];
+                newData.forEach(function (newItem) {
+
+                    var $li=  $("<li />", {
+                        class: "list-item-group",
+                        "data-id":newItem.id,
+                        html: newItem.title
+                    });
+                    listItem.push($li);
+                });
+                $varlist.append(listItem);
+
+            },
+            error: function (err) {
+                alert("somthing wrong.......")
+            }
+        });
+    }
+    getpost();
+    $varlist.on("click", ".list-item-group", function (event) {
+        var id = $(event.target).attr("data-id");
+        $.ajax({
+            url: "https://jsonplaceholder.typicode.com/todos/"+id,
+            method: "GET",
+            success: function (data) {
+                console.log("data", data);
+                $(".content").html(data.title)
+            },
+            error: function (err) {
+                alert("somthing wrong.......")
+            }
+        })
+        //console.log(event.target)
+       // alert("child member")
+    })
+});
+=============================
+
+$(function () {
+    var $addTo = $("#addTodo");
+    var $listGroup = $(".list-group");
+    //template
+    var source = $("#entry-template").html();
+    var template = Handlebars.compile(source);
+    //==add to form
+    $addTo.on("submit", function () {
+        event.preventDefault();
+        var newTodo = $addTo.find('input').val();
+        var listItem = template({ text: newTodo })
+        $listGroup.append(listItem)
+    });
+    //===========Read Ajax====================================
+    $.ajax({
+        url: "https://jsonplaceholder.typicode.com/todos",
+        method: "GET"
+    }).done(function (data) {
+        var newData = data.slice(0, 3);
+
+        newData.forEach(function(dataItem) {
+
+            var listItem = template({ text: dataItem.title, id: dataItem.id})
+            $listGroup.append(listItem)
+        })
+        
+    }).fail(function () {
+        alert("Error.....")
+    })
+})
